@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ICustomerRepository {
     List<Customer> findAll();
+    Customer findById(long id);
+    boolean updateCustomer(Customer customer);
 }

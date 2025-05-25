@@ -34,7 +34,7 @@ There are ${requestScope.customers.size()} customer(s) in list.
                 <c:out value="${c.getCustomerId()}"/>
             </td>
             <td>
-                <a href="customers/info.jsp&id=${c.getCustomerId()}">${c.getCustomerName()}</a>
+                <a href="/customers/${c.getCustomerId()}">${c.getCustomerName()}</a>
             </td>
             <td>
                 <c:out value="${c.getCustomerEmail()}"/>

@@ -1,12 +1,12 @@
 package com.codegym.ungdungquanlydanhsachkhachhang.model;
 
 public class Customer {
-    private int customerId;
+    private long customerId;
     private String customerName;
     private String customerEmail;
     private String customerAddress;
 
-    public Customer(int customerId, String customerName, String customerEmail, String customerAddress) {
+    public Customer(long customerId, String customerName, String customerEmail, String customerAddress) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
@@ -16,11 +16,11 @@ public class Customer {
     public Customer() {
     }
 
-    public int getCustomerId() {
+    public long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(long customerId) {
         this.customerId = customerId;
     }
 

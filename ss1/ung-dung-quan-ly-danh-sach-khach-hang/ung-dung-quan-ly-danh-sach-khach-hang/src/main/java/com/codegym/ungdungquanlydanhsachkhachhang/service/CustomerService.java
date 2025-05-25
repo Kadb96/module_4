@@ -13,4 +13,14 @@ public class CustomerService implements ICustomerService {
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
+
+    @Override
+    public Customer findById(long id) {
+        return customerRepository.findById(id);
+    }
+
+    @Override
+    public boolean updateCustomer(Customer customer) {
+        return customerRepository.updateCustomer(customer);
+    }
 }

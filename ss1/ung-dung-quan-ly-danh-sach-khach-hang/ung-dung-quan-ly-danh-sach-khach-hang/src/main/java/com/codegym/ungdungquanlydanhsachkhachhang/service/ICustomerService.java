@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface ICustomerService {
     List<Customer> findAll();
+    Customer findById(long id);
+    boolean updateCustomer(Customer customer);
+
 }

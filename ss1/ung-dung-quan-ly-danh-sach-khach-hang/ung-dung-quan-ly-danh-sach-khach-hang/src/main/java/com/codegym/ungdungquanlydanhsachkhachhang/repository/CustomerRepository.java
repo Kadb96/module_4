@@ -14,9 +14,12 @@ public class CustomerRepository implements ICustomerRepository {
     //    cac cau query duoc su dung
     private final String SHOW_ALL = "SELECT * FROM customer";
     private final String SHOW_BY_ID = "SELECT * FROM customer WHERE customer_id = ?";
+    private final String SAVE_CUSTOMER = "INSERT INTO customer(customer_id, customer_name, customer_email, customer_address) " +
+            "VALUES(?, ?, ?, ?)";
     private final String UPDATE_CUSTOMER = "UPDATE customer " +
             "SET customer_name = ?, customer_email = ?, customer_address = ? " +
             "WHERE customer_id = ?;";
+    private final String DELETE_BY_ID = "DELETE FROM customer WHERE customer_id = ?;";
 
     @Override
     public List<Customer> findAll() {
@@ -61,7 +64,22 @@ public class CustomerRepository implements ICustomerRepository {
     }
 
     @Override
-    public boolean updateCustomer(Customer customer) {
+    public boolean save(Customer customer) {
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SAVE_CUSTOMER);
+            preparedStatement.setLong(1, customer.getCustomerId());
+            preparedStatement.setString(2, customer.getCustomerName());
+            preparedStatement.setString(3, customer.getCustomerEmail());
+            preparedStatement.setString(4, customer.getCustomerAddress());
+            return preparedStatement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean update(Customer customer) {
         Connection connection = BaseRepository.getConnectDB();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CUSTOMER);
@@ -69,6 +87,18 @@ public class CustomerRepository implements ICustomerRepository {
             preparedStatement.setString(2, customer.getCustomerEmail());
             preparedStatement.setString(3, customer.getCustomerAddress());
             preparedStatement.setLong(4, customer.getCustomerId());
+            return preparedStatement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean delete(long id) {
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_ID);
+            preparedStatement.setLong(1,id);
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw new RuntimeException(e);

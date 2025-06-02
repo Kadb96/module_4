@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Translate</title>
+</head>
+<body>
+<form th:action="@{/translates/results}" th:form="get">
+    <input type="text" th:name="vietnamese" th:value="${vietnamese}">
+    <span> = </span>
+    <input type="text" th:name="english" th:value="${english}">
+    <br>
+    <button type="submit">Translate</button>
+</form>
+</body>
+</html>

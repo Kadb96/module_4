@@ -24,7 +24,7 @@
         <th>View</th>
     </tr>
     </thead>
-    <tbody>
+    <body>
     <tr th:each="row,rowStat : ${customers}">
         <td th:text="${row.customerName}"></td>
         <td th:text="${row.customerEmail}"></td>
@@ -33,7 +33,7 @@
         <td><a th:href="@{/customers/{id}/delete(id=${row.customerId})}">delete</a></td>
         <td><a th:href="@{/customers/{id}/view(id=${row.customerId})}">view</a></td>
     </tr>
-    </tbody>
+    </body>
 </table>
 <footer th:replace="/layout :: footer"></footer>
 </body>

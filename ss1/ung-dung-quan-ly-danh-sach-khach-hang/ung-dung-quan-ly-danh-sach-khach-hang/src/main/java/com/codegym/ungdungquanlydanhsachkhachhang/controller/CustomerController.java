@@ -33,7 +33,6 @@ public class CustomerController {
 
     @PostMapping("/save")
     public String save(Customer customer) {
-        customer.setCustomerId((long) (Math.random() * 10000));
         customerService.save(customer);
         return "redirect:/customers";
     }

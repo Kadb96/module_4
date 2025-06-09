@@ -26,12 +26,12 @@
     </thead>
     <body>
     <tr th:each="row,rowStat : ${customers}">
-        <td th:text="${row.customerName}"></td>
-        <td th:text="${row.customerEmail}"></td>
-        <td th:text="${row.customerAddress}"></td>
-        <td><a th:href="@{/customers/{id}/edit(id=${row.customerId})}">edit</a></td>
-        <td><a th:href="@{/customers/{id}/delete(id=${row.customerId})}">delete</a></td>
-        <td><a th:href="@{/customers/{id}/view(id=${row.customerId})}">view</a></td>
+        <td th:text="${row.name}"></td>
+        <td th:text="${row.email}"></td>
+        <td th:text="${row.address}"></td>
+        <td><a th:href="@{/customers/{id}/edit(id=${row.id})}">edit</a></td>
+        <td><a th:href="@{/customers/{id}/delete(id=${row.id})}">delete</a></td>
+        <td><a th:href="@{/customers/{id}/view(id=${row.id})}">view</a></td>
     </tr>
     </body>
 </table>

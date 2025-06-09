@@ -1,7 +1,7 @@
 package com.codegym.ungdungquanlydanhsachkhachhang.controller;
 
 import com.codegym.ungdungquanlydanhsachkhachhang.model.Customer;
-import com.codegym.ungdungquanlydanhsachkhachhang.service.CustomerService;
+import com.codegym.ungdungquanlydanhsachkhachhang.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/customers")
 public class CustomerController {
     @Autowired
-    private CustomerService customerService;
+    private ICustomerService<Customer> customerService;
 
     @GetMapping()
     public ModelAndView showList() {
@@ -38,7 +38,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}/edit")
-    public String update(@PathVariable int id, Model model) {
+    public String update(@PathVariable Long id, Model model) {
         Customer customer = customerService.findById(id);
         model.addAttribute("customer", customer);
         return "/edit";
@@ -46,25 +46,25 @@ public class CustomerController {
 
     @PostMapping("/edit")
     public String update(Customer customer) {
-        customerService.update(customer);
+        customerService.save(customer);
         return "redirect:/customers";
     }
 
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable int id, Model model) {
+    public String delete(@PathVariable Long id, Model model) {
         model.addAttribute("customer", customerService.findById(id));
         return "/delete";
     }
 
     @PostMapping("/delete")
     public String delete(Customer customer, RedirectAttributes redirect) {
-        customerService.delete(customer.getCustomerId());
+        customerService.remove(customer.getId());
         redirect.addFlashAttribute("success", "Removed customer successfully!");
         return "redirect:/customers";
     }
 
     @GetMapping("/{id}/view")
-    public String view(@PathVariable int id, Model model) {
+    public String view(@PathVariable Long id, Model model) {
         model.addAttribute("customer", customerService.findById(id));
         return "/view";
     }

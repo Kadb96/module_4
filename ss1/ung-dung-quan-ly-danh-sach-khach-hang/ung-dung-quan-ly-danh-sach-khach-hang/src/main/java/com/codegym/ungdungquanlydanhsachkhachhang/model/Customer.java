@@ -3,54 +3,53 @@ package com.codegym.ungdungquanlydanhsachkhachhang.model;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "customer")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long customerId;
-    private String customerName;
-    private String customerEmail;
-    private String customerAddress;
+    private Long id;
+    private String name;
+    private String email;
+    private String address;
 
-    public Customer(long customerId, String customerName, String customerEmail, String customerAddress) {
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.customerEmail = customerEmail;
-        this.customerAddress = customerAddress;
+    public Customer(Long id, String name, String email, String address) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.address = address;
     }
 
     public Customer() {
     }
 
-    public long getCustomerId() {
-        return customerId;
+    public Long getId() {
+        return id;
     }
 
-    public void setCustomerId(long customerId) {
-        this.customerId = customerId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCustomerEmail() {
-        return customerEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getCustomerAddress() {
-        return customerAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

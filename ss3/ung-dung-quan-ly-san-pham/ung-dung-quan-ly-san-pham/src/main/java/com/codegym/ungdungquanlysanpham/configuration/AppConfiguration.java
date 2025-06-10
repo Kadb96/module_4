@@ -1,5 +1,9 @@
-package com.codegym.ungdungtudiendongian.configuration;
+package com.codegym.ungdungquanlysanpham.configuration;
 
+import com.codegym.ungdungquanlysanpham.repository.IProductRepository;
+import com.codegym.ungdungquanlysanpham.repository.ProductRepository;
+import com.codegym.ungdungquanlysanpham.service.IProductService;
+import com.codegym.ungdungquanlysanpham.service.ProductService;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -15,7 +19,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.codegym.ungdungtudiendongian")
+@ComponentScan("com.codegym.ungdungquanlysanpham")
 public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
@@ -48,5 +52,15 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         viewResolver.setTemplateEngine(templateEngine());
         viewResolver.setCharacterEncoding("UTF-8");
         return viewResolver;
+    }
+
+    @Bean
+    public ProductRepository productRepository() {
+        return new ProductRepository();
+    }
+
+    @Bean
+    public ProductService productService() {
+        return new ProductService();
     }
 }

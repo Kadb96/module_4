@@ -1,4 +1,4 @@
-package com.codegym.ungdungtudiendongian.configuration;
+package com.codegym.ungdungquanlysanpham.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

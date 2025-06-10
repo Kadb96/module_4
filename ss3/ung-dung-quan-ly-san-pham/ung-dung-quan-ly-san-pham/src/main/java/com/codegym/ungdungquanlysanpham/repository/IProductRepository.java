@@ -1,13 +1,13 @@
-package com.codegym.ungdungquanlysanpham;
+package com.codegym.ungdungquanlysanpham.repository;
 
-import com.codegym.ungdungquanlydanhsachkhachhang.model.Customer;
+import com.codegym.ungdungquanlysanpham.model.Product;
 
 import java.util.List;
 
-public interface ICustomerRepository {
-    List<Customer> findAll();
-    Customer findById(long id);
-    boolean save(Customer customer);
-    boolean update(Customer customer);
-    boolean delete(long id);
+public interface IProductRepository {
+    List<Product> findAll();
+    Product findById(String id);
+    boolean save(Product product);
+    boolean update(Product product);
+    boolean delete(String id);
 }

@@ -1,36 +1,38 @@
 package com.codegym.ungdungquanlysanpham.service;
 
-import com.codegym.ungdungquanlydanhsachkhachhang.model.Customer;
-import com.codegym.ungdungquanlydanhsachkhachhang.repository.CustomerRepository;
-import com.codegym.ungdungquanlydanhsachkhachhang.repository.ICustomerRepository;
+import com.codegym.ungdungquanlysanpham.model.Product;
+import com.codegym.ungdungquanlysanpham.repository.IProductRepository;
+import com.codegym.ungdungquanlysanpham.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class CustomerService implements ICustomerService {
-    private ICustomerRepository customerRepository = new CustomerRepository();
+public class ProductService implements IProductService {
+    @Autowired
+    ProductRepository productRepository;
 
     @Override
-    public List<Customer> findAll() {
-        return customerRepository.findAll();
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
     @Override
-    public Customer findById(long id) {
-        return customerRepository.findById(id);
+    public Product findById(String id) {
+        return productRepository.findById(id);
     }
 
     @Override
-    public boolean save(Customer customer) {
-        return customerRepository.save(customer);
+    public boolean save(Product product) {
+        return productRepository.save(product);
     }
 
     @Override
-    public boolean update(Customer customer) {
-        return customerRepository.update(customer);
+    public boolean update(Product product) {
+        return productRepository.update(product);
     }
 
     @Override
-    public boolean delete(long id) {
-        return customerRepository.delete(id);
+    public boolean delete(String id) {
+        return productRepository.delete(id);
     }
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Product</title>
+</head>
+<body>
+<form th:action="@{/songs/save}" method="post" th:object="${song}" novalidate="novalidate" enctype="multipart/form-data">
+    <label for="id">Song ID: </label>
+    <input type="text" id="id" th:field="*{id}"><br>
+    <label for="name">Song Name: </label>
+    <input type="text" id="name" th:field="*{name}"><br>
+    <label for="artist">Song Artist: </label>
+    <input type="text" id="artist" th:field="*{artist}"><br>
+    <label for="genre">Song Genre: </label>
+    <input type="text" id="genre" th:field="*{genre}"><br>
+    <label for="path">Song File: </label>
+    <input type="file" id="path" th:field="*{path}"><br>
+    <button type="submit">Save Song</button>
+</form>
+</body>
+</html>

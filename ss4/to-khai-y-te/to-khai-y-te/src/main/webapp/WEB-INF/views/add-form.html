@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Medical Form</title>
+</head>
+<body>
+<h1>
+    To khai y te
+</h1>
+<h2>
+    Day la tai lieu quan trong, thong tin cua anh/chi se giup co quan y te lien lac khi can thiet de phong chong dich
+    benh truyen nhiem
+</h2>
+<h3>
+    Khuyen cao: Khai bao thong tin sai la vi pham phap luat Viet Nam va co the xu ly hinh su
+</h3>
+<form th:action="@{/medical-forms/save}" th:method="post" th:object="${medicalForm}">
+    <input id="id" type="hidden" th:field="*{id}" th:value="1">
+    <label for="name">Ho ten (ghi chu IN HOA)</label><br>
+    <input id="name" type="text" th:field="*{name}"><br>
+    <label for="yearOfBirth">Nam sinh</label><br>
+    <select id="yearOfBirth" th:field="*{yearOfBirth}">
+        <option th:each="i : ${#numbers.sequence(1899, 2025)}" th:value="${i}" th:text="${i}"></option>
+        <br>
+    </select><br>
+    <label for="gender">Gioi tinh</label><br>
+    <select id="gender" th:field="*{gender}">
+        <option th:value="nam" th:text="nam"></option>
+        <option th:value="nu" th:text="nu"></option>
+        <br>
+    </select><br>
+    <label for="country">Quoc tich</label><br>
+    <select id="country" th:field="*{country}">
+        <option th:value="Vietnam" th:text="Vietnam"></option>
+        <option th:value="My" th:text="My"></option>
+        <option th:value="Phap" th:text="Phap"></option>
+        <option th:value="Anh" th:text="Anh"></option>
+        <br>
+    </select><br>
+    <label for="idNumber">So ho chieu hoac so CMND hoac giay thong hanh hop phap khac</label><br>
+    <input id="idNumber" type="text" th:field="*{idNumber}"><br>
+    <label for="transporter">Thong tin di lai</label><br>
+    <input id="transporter" type="text" th:field="*{transporter}"><br>
+    <label for="transporterNumber">So hieu phuong tien</label><br>
+    <input id="transporterNumber" type="text" th:field="*{transporterNumber}"><br>
+    <label for="seatNumber">So ghe</label><br>
+    <input id="seatNumber" type="text" th:field="*{seatNumber}"><br>
+    <label for="startDate">Ngay khoi hanh</label><br>
+    <input id="startDate" type="text" th:field="*{startDate}"><br>
+    <label for="endDate">Ngay ket thuc</label><br>
+    <input id="endDate" type="text" th:field="*{endDate}"><br>
+    <label for="cityIn14Day">Trong vong 14 ngay qua, anh/chi co den tinh/thanh pho nào?</label><br>
+    <textarea id="cityIn14Day" th:field="*{cityIn14Day}"></textarea><br>
+    <p>Dia chi lien lac</p>
+    <label for="cityContact">Tinh/Thanh</label><br>
+    <input id="cityContact" type="text" th:field="*{cityContact}"><br>
+    <label for="districtContact">Quan/Huyen</label><br>
+    <input id="districtContact" type="text" th:field="*{districtContact}"><br>
+    <label for="wardContact">Phuong/Xa</label><br>
+    <input id="wardContact" type="text" th:field="*{wardContact}"><br>
+    <label for="addressContact">Dia chi noi o</label><br>
+    <input id="addressContact" type="text" th:field="*{addressContact}"><br>
+    <label for="phoneContact">Dien thoai</label><br>
+    <input id="phoneContact" type="text" th:field="*{phoneContact}"><br>
+    <label for="emailContact">Email</label><br>
+    <input id="emailContact" type="text" th:field="*{emailContact}"><br>
+    <p>Trong vong 14 ngay qua, anh/chi co thay xuat hien dau hieu nao sau day khong?</p>
+    <table>
+        <tr>
+            <th>Trieu chung</th>
+            <th>Co/Khong</th>
+        </tr>
+        <tr>
+            <td>Sot</td>
+            <td><input type="checkbox" th:field="*{fever}"></td>
+        </tr>
+        <tr>
+            <td>Ho</td>
+            <td><input type="checkbox" th:field="*{cough}"></td>
+        </tr>
+        <tr>
+            <td>Kho tho</td>
+            <td><input type="checkbox" th:field="*{hardToBreath}"></td>
+        </tr>
+        <tr>
+            <td>Dau hong</td>
+            <td><input type="checkbox" th:field="*{soreThroat}"></td>
+        </tr>
+        <tr>
+            <td>Non/Buon non</td>
+            <td><input type="checkbox" th:field="*{vomit}"></td>
+        </tr>
+        <tr>
+            <td>Tieu chay</td>
+            <td><input type="checkbox" th:field="*{diarrhea}"></td>
+        </tr>
+        <tr>
+            <td>Xuat huyet ngoai da</td>
+            <td><input type="checkbox" th:field="*{externalBleeding}"></td>
+        </tr>
+        <tr>
+            <td>Noi ban ngoai da</td>
+            <td><input type="checkbox" th:field="*{externalLump}"></td>
+        </tr>
+    </table>
+    <p>Lich su phoi nhiem: Trong vong 14 ngay qua, anh/chi co:</p>
+    <table>
+        <tr>
+            <th>Lich su phoi nhiem</th>
+            <th>Co/Khong</th>
+        </tr>
+        <tr>
+            <td>Den trang trai chan nuoi/cho buon ban dong vat song/co so giet mo dong vat/tiep xuc dong vat</td>
+            <td><input type="checkbox" th:field="*{nearRanchIn14Day}"></td>
+        </tr>
+        <tr>
+            <td>Tiep xuc gan(<2m) voi nguoi mac benh viem duong ho hap do nCovid</td>
+            <td><input type="checkbox" th:field="*{in2MeterWithCovid}"></td>
+        </tr>
+    </table>
+    <p>Du lieu ban cung cap hoan toan bao mat va chi phuc vu cho viec phong chong dich, thuoc quan ly cua Ban chi dao
+        quoc gi ve Phong chong dich Covid-19</p>
+    <p>Khi ban bam nut "Gui" la ban da hieu va dong y</p>
+    <button type="submit">Gui to khai</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Medical Form</title>
+</head>
+<body>
+<table th:object="${medicalForm}">
+    <tr>
+        <th>Thong tin</th>
+        <th>Noi dung</th>
+    </tr>
+    <tr>
+        <td>ID to khai: </td>
+        <td th:text="*{id}"></td>
+    </tr>
+    <tr>
+        <td>Ho ten: </td>
+        <td th:text="*{name}"></td>
+    </tr>
+    <tr>
+        <td>Nam sinh: </td>
+        <td th:text="*{yearOfBirth}"></td>
+    </tr>
+    <tr>
+        <td>Gioi tinh: </td>
+        <td th:text="*{gender}"></td>
+    </tr>
+    <tr>
+        <td>Quoc tich: </td>
+        <td th:text="*{country}"></td>
+    </tr>
+    <tr>
+        <td>So ho chieu/CMND/Giay thong hanh/Khac: </td>
+        <td th:text="*{idNumber}"></td>
+    </tr>
+    <tr>
+        <td>Thong tin di lai: </td>
+        <td th:text="*{transporter}"></td>
+    </tr>
+    <tr>
+        <td>So hieu phuong tien: </td>
+        <td th:text="*{transporterNumber}"></td>
+    </tr>
+    <tr>
+        <td>So ghe: </td>
+        <td th:text="*{seatNumber}"></td>
+    </tr>
+    <tr>
+        <td>Ngay khoi hanh: </td>
+        <td th:text="*{startDate}"></td>
+    </tr>
+    <tr>
+        <td>Ngay ket thuc: </td>
+        <td th:text="*{endDate}"></td>
+    </tr>
+    <tr>
+        <td>Tinh/Thanh pho trong vong 14 ngay: </td>
+        <td th:text="*{cityIn14Day}"></td>
+    </tr>
+    <tr>
+        <td>Dia chi lien lac</td>
+    </tr>
+    <tr>
+        <td>Tinh/Thanh</td>
+        <td th:text="*{cityContact}"></td>
+    </tr>
+    <tr>
+        <td>Quan/Huyen</td>
+        <td th:text="*{districtContact}"></td>
+    </tr>
+    <tr>
+        <td>Phuong/Xa</td>
+        <td th:text="*{wardContact}"></td>
+    </tr>
+    <tr>
+        <td>Dia chi noi o</td>
+        <td th:text="*{addressContact}"></td>
+    </tr>
+    <tr>
+        <td>Dien thoai</td>
+        <td th:text="*{phoneContact}"></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td th:text="*{emailContact}"></td>
+    </tr>
+    <tr>Trieu chung</tr>
+    <tr>
+        <td>Sot</td>
+        <td th:text="*{fever}"></td>
+    </tr>
+    <tr>
+        <td>Ho</td>
+        <td th:text="*{cough}"></td>
+    </tr>
+    <tr>
+        <td>Kho tho</td>
+        <td th:text="*{hardToBreath}"></td>
+    </tr>
+    <tr>
+        <td>Dau hong</td>
+        <td th:text="*{soreThroat}"></td>
+    </tr>
+    <tr>
+        <td>Non/Buon non</td>
+        <td th:text="*{vomit}"></td>
+    </tr>
+    <tr>
+        <td>Noi ban ngoai da</td>
+        <td th:text="*{externalLump}"></td>
+    </tr>
+    <tr>Lich su phoi nhiem</tr>
+    <tr>
+        <td>Tiep xuc dong vat</td>
+        <td th:text="*{nearRanchIn14Day}"></td>
+    </tr>
+    <tr>
+        <td>Tiep xuc nguoi mac nCovid</td>
+        <td th:text="*{in2MeterWithCovid}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Song List</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Play</th>
+    </tr>
+    <tr th:each="song : ${songs}">
+        <td th:text="${song.id}"></td>
+        <td th:text="${song.name}"></td>
+        <td>
+            <audio controls>
+                <source th:src="@{'/songs/' + ${song.path}}" type="audio/mpeg">
+            </audio>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

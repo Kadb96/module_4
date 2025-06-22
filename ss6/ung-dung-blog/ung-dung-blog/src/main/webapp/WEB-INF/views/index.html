@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Blog List</title>
+</head>
+<body>
+<h3>Blogs</h3>
+<button>
+    <a th:href="@{/blogs/createForm}">
+        Add new customer
+    </a>
+</button>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    <tr th:each="row,rowStat : ${blogs}">
+        <td th:text="${row.id}"></td>
+        <td th:text="${row.name}"></td>
+        <td><a th:href="@{/blogs/{id}/editForm(id=${row.id})}">Edit</a></td>
+        <td><a th:href="@{/blogs/{id}/delete(id=${row.id})}">Delete</a></td>
+        <td><a th:href="@{/blogs/{id}/viewForm(id=${row.id})}">View</a></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Add New Blog</title>
+</head>
+<body>
+<div th:object="${blog}">
+    <span>ID: <span th:text="*{id}"></span></span><br>
+    <span>Name: <span th:text="*{name}"></span></span><br>
+    <span th:text="*{content}"></span><br>
+</div>
+</body>
+</html>

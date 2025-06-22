@@ -2,6 +2,7 @@ package com.codegym.pictureoftheday.controller;
 
 import com.codegym.pictureoftheday.model.Comment;
 import com.codegym.pictureoftheday.service.CommentService;
+import com.codegym.pictureoftheday.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/comments")
 public class CommentController {
     @Autowired
-    private CommentService commentService;
+    private ICommentService commentService;
 
     @GetMapping("")
     public ModelAndView index() {

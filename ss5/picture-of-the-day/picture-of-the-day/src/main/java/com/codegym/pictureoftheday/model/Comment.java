@@ -10,7 +10,7 @@ public class Comment {
     Long score;
     String author;
     String feedback;
-    Long likeNumber;
+    Long likeNumber = 0L;
 
     public Comment() {
     }

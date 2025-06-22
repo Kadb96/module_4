@@ -9,7 +9,8 @@
 <hr>
 <div th:each="row,rowStat : ${comments}">
     <span>(+<span th:text="${row.score}"></span>) </span><span th:text="${row.feedback}"></span>
-    <button><a th:src="@{/comments/like/{id}(id=${row.id})}">like</a></button>
+    <button><a th:href="@{/comments/like/{id}(id=${row.id})}">like</a></button><br>
+    <span th:text="${row.likeNumber}"></span><span> likes</span>
     <hr>
 </div>
 <h3>Comment</h3>

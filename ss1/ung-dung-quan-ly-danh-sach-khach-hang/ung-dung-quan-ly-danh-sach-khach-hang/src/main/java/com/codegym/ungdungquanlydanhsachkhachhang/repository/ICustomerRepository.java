@@ -1,10 +1,10 @@
 package com.codegym.ungdungquanlydanhsachkhachhang.repository;
 
-import java.util.List;
+import com.codegym.ungdungquanlydanhsachkhachhang.model.Customer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ICustomerRepository<E> {
-    List<E> findAll();
-    E findById(Long id);
-    boolean save(E e);
-    boolean remove(Long id);
+public interface ICustomerRepository extends PagingAndSortingRepository<Customer, Long> {
+    Page<Customer> findAllByNameContaining(String name, Pageable pageable);
 }

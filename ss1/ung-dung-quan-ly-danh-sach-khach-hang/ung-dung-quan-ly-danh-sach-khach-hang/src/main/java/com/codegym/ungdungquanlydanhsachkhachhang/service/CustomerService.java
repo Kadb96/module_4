@@ -1,38 +1,43 @@
 package com.codegym.ungdungquanlydanhsachkhachhang.service;
 
 import com.codegym.ungdungquanlydanhsachkhachhang.model.Customer;
-import com.codegym.ungdungquanlydanhsachkhachhang.repository.CustomerRepository;
+import com.codegym.ungdungquanlydanhsachkhachhang.repository.ICustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
-import java.util.List;
 
-@Transactional
+import java.util.Optional;
+
 @Service
 public class CustomerService implements ICustomerService<Customer> {
 
     @Autowired
-    private CustomerRepository customerRepository;
-
+    private ICustomerRepository customerRepository;
 
     @Override
-    public List<Customer> findAll() {
-        return customerRepository.findAll();
+    public Page<Customer> findAll(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
 
     @Override
-    public Customer findById(Long id) {
+    public Page<Customer> findAllByName(String name, Pageable pageable) {
+        return customerRepository.findAllByNameContaining(name, pageable);
+    }
+
+    @Override
+    public Optional<Customer> findById(Long id) {
         return customerRepository.findById(id);
     }
 
     @Override
-    public boolean save(Customer customer) {
-        return customerRepository.save(customer);
+    public void save(Customer customer) {
+        customerRepository.save(customer);
     }
 
     @Override
-    public boolean remove(Long id) {
-        return customerRepository.remove(id);
+    public void remove(Long id) {
+        customerRepository.deleteById(id);
     }
 
 }

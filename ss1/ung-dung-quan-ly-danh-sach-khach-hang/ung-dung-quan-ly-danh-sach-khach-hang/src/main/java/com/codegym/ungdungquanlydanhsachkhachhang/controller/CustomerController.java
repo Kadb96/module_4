@@ -3,13 +3,16 @@ package com.codegym.ungdungquanlydanhsachkhachhang.controller;
 import com.codegym.ungdungquanlydanhsachkhachhang.model.Customer;
 import com.codegym.ungdungquanlydanhsachkhachhang.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/customers")
@@ -18,9 +21,24 @@ public class CustomerController {
     private ICustomerService<Customer> customerService;
 
     @GetMapping()
-    public ModelAndView showList() {
+    public ModelAndView showList(@PageableDefault(value = 5) Pageable pageable) {
+        Page<Customer> customers = customerService.findAll(pageable);
         ModelAndView modelAndView = new ModelAndView("index");
-        List<Customer> customers = customerService.findAll();
+        modelAndView.addObject("customers", customers);
+        return modelAndView;
+    }
+
+    @GetMapping("/search")
+    public ModelAndView showSearchList(@PageableDefault(value = 5) Pageable pageable,
+                                       @RequestParam("search") Optional<String> search) {
+        Page<Customer> customers;
+        if (search.isPresent()) {
+            customers = customerService.findAllByName(search.get(), pageable);
+        } else {
+            customers = customerService.findAll(pageable);
+        }
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("search", search.get());
         modelAndView.addObject("customers", customers);
         return modelAndView;
     }
@@ -38,13 +56,14 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}/edit")
-    public String update(@PathVariable Long id, Model model) {
-        Customer customer = customerService.findById(id);
-        model.addAttribute("customer", customer);
-        return "/edit";
+    public ModelAndView update(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("update");
+        Optional<Customer> customer = customerService.findById(id);
+        modelAndView.addObject("customer", customer.get());
+        return modelAndView;
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/update")
     public String update(Customer customer) {
         customerService.save(customer);
         return "redirect:/customers";
@@ -53,7 +72,7 @@ public class CustomerController {
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable Long id, Model model) {
         model.addAttribute("customer", customerService.findById(id));
-        return "/delete";
+        return "delete";
     }
 
     @PostMapping("/delete")
@@ -64,8 +83,10 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}/view")
-    public String view(@PathVariable Long id, Model model) {
-        model.addAttribute("customer", customerService.findById(id));
-        return "/view";
+    public ModelAndView view(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("view");
+        Optional<Customer> customer = customerService.findById(id);
+        modelAndView.addObject("customer", customer.get());
+        return modelAndView;
     }
 }

@@ -12,7 +12,12 @@
         Add new customer
     </a>
 </p>
-
+<div style="margin-bottom: 10px; margin-left: 110px">
+    <form th:action="@{/customers/search}" method="get">
+        <label><input type="text" name="search" th:value="${search}"></label>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
 <table id="customers">
     <thead>
     <tr>
@@ -35,6 +40,13 @@
     </tr>
     </body>
 </table>
+<div>
+    <a class="btn btn-primary" th:if="${customers.hasPrevious()}"
+       th:href="@{/customers/search(page=${customers.number - 1}, search=${search})}">Previous</a>
+    <span th:text="${customers.number + 1}"></span> | <span th:text="${customers.totalPages}"></span>
+    <a class="btn btn-primary" th:if="${customers.hasNext()}"
+       th:href="@{/customers/search(page=${customers.number + 1}, search=${search})}">Next</a>
+</div>
 <footer th:replace="/layout :: footer"></footer>
 </body>
 </html>

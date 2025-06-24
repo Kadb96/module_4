@@ -10,6 +10,10 @@
     <input id="name" type="text" th:field="*{name}"><br>
     <label for="content">Content: </label><br>
     <textarea id="content" th:field="*{content}"></textarea>
+    <label for="category">Category: </label><br>
+    <select id="category" th:field="*{category}">
+        <option th:each="row: ${categories}" th:text="${row.name}" th:value="${row.id}"></option>
+    </select>
     <button type="submit">Edit Blog</button>
 </form>
 </body>

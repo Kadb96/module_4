@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Blog List</title>
+</head>
+<body>
+<h3>Blogs</h3>
+<button>
+    <a th:href="@{/blogs/createForm}">
+        Add New Blog
+    </a>
+</button><br>
+<div style="margin-bottom: 10px">
+    <form th:action="@{/blogs/search}" method="get">
+        <label><input type="text" name="search" th:value="${search}"></label>
+        <select name="categorySearch" th:value="categorySearch">
+            <option>All Categories</option>
+            <option th:each="row: ${categories}" th:selected="${categorySearch == row.name}" th:text="${row.name}"
+                    th:value="${row.name}">
+            </option>
+        </select>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    <tr th:each="row,rowStat : ${blogs}">
+        <td th:text="${row.id}"></td>
+        <td th:text="${row.name}"></td>
+        <td th:text="${row.category.getName()}"></td>
+        <td><a th:href="@{/blogs/{id}/editForm(id=${row.id})}">Edit</a></td>
+        <td><a th:href="@{/blogs/{id}/delete(id=${row.id})}">Delete</a></td>
+        <td><a th:href="@{/blogs/{id}/viewForm(id=${row.id})}">View</a></td>
+    </tr>
+</table>
+<a class="btn btn-primary" th:if="${blogs.hasPrevious()}"
+   th:href="@{/blogs/search(page=${blogs.number - 1}, search=${search}, categorySearch=${categorySearch})}">Previous</a>
+<span th:text="${blogs.number + 1}"></span> | <span th:text="${blogs.totalPages}"></span>
+<a class="btn btn-primary" th:if="${blogs.hasNext()}"
+   th:href="@{/blogs/search(page=${blogs.number + 1}, search=${search}, categorySearch=${categorySearch})}">Next</a>
+</body>
+</html>

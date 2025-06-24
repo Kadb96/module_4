@@ -1,25 +1,38 @@
 package com.codegym.ungdungblog.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     private String content;
 
-    public Blog(Long id, String name, String content) {
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    public Blog() {
+    }
+
+    public Blog(Long id, String name, String content, Category category) {
         this.id = id;
         this.name = name;
         this.content = content;
+        this.category = category;
     }
 
-    public Blog() {
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Long getId() {

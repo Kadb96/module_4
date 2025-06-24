@@ -5,12 +5,15 @@
 </head>
 <body>
 <form th:action="@{/blogs/create}" th:method="post" th:object="${blog}">
-    <label for="id">ID: </label><br>
-    <input id="id" type="number" th:field="*{id}"><br>
+    <input id="id" type="hidden" th:field="*{id}"><br>
     <label for="name">Name: </label><br>
     <input id="name" type="text" th:field="*{name}"><br>
     <label for="content">Content: </label><br>
-    <textarea id="content" th:field="*{content}"></textarea>
+    <textarea id="content" th:field="*{content}"></textarea><br>
+    <label for="category">Category: </label><br>
+    <select id="category" th:field="*{category}">
+        <option th:each="row: ${categories}" th:text="${row.name}" th:value="${row.id}"></option>
+    </select>
     <button type="submit">Add New Blog</button>
 </form>
 </body>

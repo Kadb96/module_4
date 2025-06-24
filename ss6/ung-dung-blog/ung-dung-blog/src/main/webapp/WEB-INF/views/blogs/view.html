@@ -7,6 +7,7 @@
 <div th:object="${blog}">
     <span>ID: <span th:text="*{id}"></span></span><br>
     <span>Name: <span th:text="*{name}"></span></span><br>
+    <span>Category: <span th:text="*{category.name}"></span></span><br>
     <span th:text="*{content}"></span><br>
 </div>
 </body>

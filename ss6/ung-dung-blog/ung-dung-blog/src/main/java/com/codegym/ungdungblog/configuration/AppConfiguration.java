@@ -1,6 +1,6 @@
 package com.codegym.ungdungblog.configuration;
-import com.codegym.ungdungblog.repository.BlogRepository;
-import com.codegym.ungdungblog.service.BlogService;
+import com.codegym.ungdungblog.formatter.CategoryFormatter;
+import com.codegym.ungdungblog.service.impl.CategoryService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -8,6 +8,9 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -31,6 +34,8 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.codegym.ungdungblog")
+@EnableJpaRepositories("com.codegym.ungdungblog.repository")
+@EnableSpringDataWebSupport
 public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
@@ -107,5 +112,11 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
         return properties;
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        CategoryFormatter categoryFormatter = new CategoryFormatter(applicationContext.getBean(CategoryService.class));
+        registry.addFormatter(categoryFormatter);
     }
 }

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>View The Category</title>
+</head>
+<body>
+<div th:object="${category}">
+    <span>ID: <span th:text="*{id}"></span></span><br>
+    <span>Name: <span th:text="*{name}"></span></span><br>
+</div>
+</body>
+</html>

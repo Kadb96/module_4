@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit New Song</title>
 </head>
 <body>
-<form th:object="${song}" th:action="@{/songs/result}" method="post">
-    <input type="hidden" th:field="*{id}">
+<form th:object="${song}" th:action="@{/songs/edit}" method="post">
+    <input type="text" th:field="*{id}" readonly><br>
     <input type="text" th:field="*{title}" placeholder="Title">
     <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name Error</span><br>
     <input type="text" th:field="*{author}" placeholder="Author">

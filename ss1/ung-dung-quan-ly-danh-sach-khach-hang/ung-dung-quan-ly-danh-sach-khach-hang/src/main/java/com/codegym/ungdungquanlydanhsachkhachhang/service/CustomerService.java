@@ -1,8 +1,10 @@
 package com.codegym.ungdungquanlydanhsachkhachhang.service;
 
+import com.codegym.ungdungquanlydanhsachkhachhang.exception.DuplicateEmailException;
 import com.codegym.ungdungquanlydanhsachkhachhang.model.Customer;
 import com.codegym.ungdungquanlydanhsachkhachhang.repository.ICustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,8 @@ public class CustomerService implements ICustomerService<Customer> {
     private ICustomerRepository customerRepository;
 
     @Override
-    public Page<Customer> findAll(Pageable pageable) throws Exception{
-        throw new Exception("a dummy exception");
+    public Page<Customer> findAll(Pageable pageable){
+        return customerRepository.findAll(pageable);
     }
 
     @Override
@@ -31,8 +33,12 @@ public class CustomerService implements ICustomerService<Customer> {
     }
 
     @Override
-    public void save(Customer customer) {
-        customerRepository.save(customer);
+    public void save(Customer customer) throws DuplicateEmailException {
+        try {
+            customerRepository.save(customer);
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateEmailException();
+        }
     }
 
     @Override

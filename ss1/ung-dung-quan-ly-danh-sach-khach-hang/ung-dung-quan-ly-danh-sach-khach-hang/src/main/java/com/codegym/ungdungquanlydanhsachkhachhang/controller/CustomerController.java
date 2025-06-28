@@ -1,5 +1,6 @@
 package com.codegym.ungdungquanlydanhsachkhachhang.controller;
 
+import com.codegym.ungdungquanlydanhsachkhachhang.exception.DuplicateEmailException;
 import com.codegym.ungdungquanlydanhsachkhachhang.model.Customer;
 import com.codegym.ungdungquanlydanhsachkhachhang.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,9 +59,9 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public String save(Customer customer) {
-        customerService.save(customer);
-        return "redirect:/customers";
+    public String save(Customer customer) throws DuplicateEmailException{
+            customerService.save(customer);
+            return "redirect:/customers";
     }
 
     @GetMapping("/{id}/edit")
@@ -72,7 +73,7 @@ public class CustomerController {
     }
 
     @PostMapping("/update")
-    public String update(Customer customer) {
+    public String update(Customer customer) throws DuplicateEmailException {
         customerService.save(customer);
         return "redirect:/customers";
     }
@@ -96,5 +97,10 @@ public class CustomerController {
         Optional<Customer> customer = customerService.findById(id);
         modelAndView.addObject("customer", customer.get());
         return modelAndView;
+    }
+
+    @ExceptionHandler(DuplicateEmailException.class)
+    public ModelAndView showInputNotAcceptable() {
+        return new ModelAndView("input_not_acceptable");
     }
 }

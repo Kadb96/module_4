@@ -22,25 +22,33 @@ public class CustomerController {
 
     @GetMapping()
     public ModelAndView showList(@PageableDefault(value = 5) Pageable pageable) {
-        Page<Customer> customers = customerService.findAll(pageable);
-        ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("customers", customers);
-        return modelAndView;
+        try {
+            Page<Customer> customers = customerService.findAll(pageable);
+            ModelAndView modelAndView = new ModelAndView("index");
+            modelAndView.addObject("customers", customers);
+            return modelAndView;
+        } catch (Exception e) {
+            return new ModelAndView("error");
+        }
     }
 
     @GetMapping("/search")
     public ModelAndView showSearchList(@PageableDefault(value = 5) Pageable pageable,
                                        @RequestParam("search") Optional<String> search) {
-        Page<Customer> customers;
-        if (search.isPresent()) {
-            customers = customerService.findAllByName(search.get(), pageable);
-        } else {
-            customers = customerService.findAll(pageable);
+        try {
+            Page<Customer> customers;
+            if (search.isPresent()) {
+                customers = customerService.findAllByName(search.get(), pageable);
+            } else {
+                customers = customerService.findAll(pageable);
+            }
+            ModelAndView modelAndView = new ModelAndView("index");
+            modelAndView.addObject("search", search.get());
+            modelAndView.addObject("customers", customers);
+            return modelAndView;
+        } catch (Exception e) {
+            return new ModelAndView("error");
         }
-        ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("search", search.get());
-        modelAndView.addObject("customers", customers);
-        return modelAndView;
     }
 
     @GetMapping("/create")

@@ -16,8 +16,8 @@ public class CustomerService implements ICustomerService<Customer> {
     private ICustomerRepository customerRepository;
 
     @Override
-    public Page<Customer> findAll(Pageable pageable) {
-        return customerRepository.findAll(pageable);
+    public Page<Customer> findAll(Pageable pageable) throws Exception{
+        throw new Exception("a dummy exception");
     }
 
     @Override

@@ -1,16 +1,17 @@
 package com.codegym.pictureoftheday.controller;
 
 import com.codegym.pictureoftheday.model.Comment;
-import com.codegym.pictureoftheday.service.CommentService;
 import com.codegym.pictureoftheday.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.swing.text.html.Option;
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -28,7 +29,12 @@ public class CommentController {
     }
 
     @PostMapping("/comment")
-    public ModelAndView addComment(@ModelAttribute("comment") Comment comment) {
+    public ModelAndView addComment(@Valid @ModelAttribute("comment") Comment comment, BindingResult bindingResult) {
+        new Comment().validate(comment, bindingResult);
+        if (bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("redirect:/comments");
+            return modelAndView;
+        }
         commentService.save(comment);
         ModelAndView modelAndView = new ModelAndView("redirect:/comments");
         return modelAndView;

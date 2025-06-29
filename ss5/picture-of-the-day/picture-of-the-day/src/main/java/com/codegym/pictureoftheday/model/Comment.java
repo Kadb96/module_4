@@ -76,9 +76,8 @@ public class Comment implements Validator {
     public void validate(Object target, Errors errors) {
         Comment comment = (Comment) target;
         String feedback = comment.getFeedback();
-
-        if(feedback.matches("(fuck)")) {
-            errors.rejectValue("feedback", "feedback.language");
+        if(feedback.matches(".*fuck.*")) {
+            errors.rejectValue("feedback","feedback.language");
         }
     }
 }

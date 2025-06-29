@@ -4,9 +4,14 @@ import com.codegym.pictureoftheday.model.Comment;
 import com.codegym.pictureoftheday.service.CommentService;
 import com.codegym.pictureoftheday.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/comments")
@@ -15,9 +20,9 @@ public class CommentController {
     private ICommentService commentService;
 
     @GetMapping("")
-    public ModelAndView index() {
+    public ModelAndView index(@PageableDefault(value = 5) Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("comments", commentService.findAll());
+        modelAndView.addObject("comments", commentService.findAll(pageable));
         modelAndView.addObject("comment", new Comment());
         return modelAndView;
     }
@@ -31,7 +36,8 @@ public class CommentController {
 
     @GetMapping("/like/{id}")
     public ModelAndView like(@PathVariable("id") Long id) {
-        Comment comment = commentService.findById(id);
+        Optional<Comment> commentOptional = commentService.findById(id);
+        Comment comment = commentOptional.get();
         commentService.save(new Comment(comment.getId(), comment.getScore(), comment.getAuthor(), comment.getFeedback(),
                 comment.getLikeNumber() + 1));
         ModelAndView modelAndView = new ModelAndView("redirect:/comments");

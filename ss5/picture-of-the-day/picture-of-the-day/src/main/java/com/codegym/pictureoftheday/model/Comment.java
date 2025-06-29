@@ -1,9 +1,13 @@
 package com.codegym.pictureoftheday.model;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Comment {
+public class Comment implements Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -61,5 +65,20 @@ public class Comment {
 
     public void setLikeNumber(Long likeNumber) {
         this.likeNumber = likeNumber;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return Comment.class.isAssignableFrom(clazz);
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        Comment comment = (Comment) target;
+        String feedback = comment.getFeedback();
+
+        if(feedback.matches("(fuck)")) {
+            errors.rejectValue("feedback", "feedback.language");
+        }
     }
 }

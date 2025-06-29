@@ -13,6 +13,11 @@
     <span th:text="${row.likeNumber}"></span><span> likes</span>
     <hr>
 </div>
+<a class="btn btn-primary" th:if="${comments.hasPrevious()}"
+   th:href="@{/comments(page=${comments.number - 1})}">Previous</a>
+<span th:text="${comments.number + 1}"></span> | <span th:text="${comments.totalPages}"></span>
+<a class="btn btn-primary" th:if="${comments.hasNext()}"
+   th:href="@{/comments(page=${comments.number + 1})}">Next</a>
 <h3>Comment</h3>
 <form th:action="@{/comments/comment}" th:method="post" th:object="${comment}">
     <input type="hidden" th:field="*{id}">

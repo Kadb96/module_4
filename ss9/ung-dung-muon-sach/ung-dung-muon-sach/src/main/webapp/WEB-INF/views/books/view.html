@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add A New Book</title>
+</head>
+<body>
+<h1>Book Detail</h1>
+<div th:object="${book}">
+    <span>Book ID: <span th:text="*{id}"></span></span><br>
+    <span>Title: <span th:text="*{title}"></span></span><br>
+    <span>Author: <span th:text="*{author}"></span></span><br>
+    <span>Publisher: <span th:text="*{publisher}"></span></span><br>
+    <span>Description: <span th:text="*{description}"></span></span><br>
+    <span>Quantity: <span th:text="*{quantity}"></span></span><br>
+</div>
+</body>
+</html>

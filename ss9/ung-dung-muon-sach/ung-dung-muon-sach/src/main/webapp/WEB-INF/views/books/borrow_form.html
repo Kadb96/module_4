@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Borrow A New Book</title>
+</head>
+<body>
+<h1>Borrow A New Book</h1>
+<form th:action="@{/books/borrow}" method="post" th:object="${bookCard}">
+    <input type="hidden" th:field="*{id}">
+    <label for="book">Book: </label><br>
+    <select id="book" th:field="*{book}">
+        <option th:each="row: ${books}" th:text="${row.title}" th:value="${row.id}"></option>
+    </select><br>
+    <label for="borrower-name">Borrower's Name: </label><br>
+    <input id="borrower-name" type="text" th:field="*{borrowerName}"><br>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

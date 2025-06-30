@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Return A New Book</title>
+</head>
+<body>
+<h1>Return A New Book</h1>
+<form th:action="@{/book_cards/return}" method="post">
+    <label for="id">Book Card ID</label>
+    <input id="id" type="number" th:name="id">
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Card List</title>
+</head>
+<body>
+<h1>Book Card List</h1>
+<button>
+    <a th:href="@{/book_cards/show_return_form}">Return A Book</a>
+</button>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Book</th>
+        <th>Borrower's Name</th>
+        <th>Returned</th>
+        <th>Return</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="row : ${bookCards}">
+        <td th:text="${row.id}"></td>
+        <td th:text="${row.book.getTitle()}"></td>
+        <td th:text="${row.borrowerName}"></td>
+        <td th:if="${row.isReturned()}">Returned</td>
+        <td th:if="${!row.isReturned()}">Not Returned</td>
+        <td>
+            <button>
+            </button>
+        </td>
+        <td>
+            <button>
+            </button>
+        </td>
+        <td>
+            <button>
+            </button>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

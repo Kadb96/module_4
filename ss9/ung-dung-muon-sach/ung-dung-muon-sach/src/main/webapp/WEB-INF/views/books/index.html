@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book List</title>
+</head>
+<body>
+<h1>Book List</h1>
+<button>
+    <a th:href="@{/books/show_add_form}">Add New Book</a>
+</button>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Quantity</th>
+        <th>Detail</th>
+        <th>Borrow</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="row : ${books}">
+        <td th:text="${row.title}"></td>
+        <td th:text="${row.author}"></td>
+        <td th:text="${row.quantity}"></td>
+        <td>
+            <button>
+                <a th:href="@{/books/view/{id}(id=${row.getId()})}">Detail</a>
+            </button>
+        </td>
+        <td>
+            <button>
+                <a th:href="@{/books/show_borrow_form/{id}(id=${row.getId()})}">Borrow</a>
+            </button>
+        </td>
+        <td>
+            <button>
+<!--                <a th:href="@{/customers/update/{id}(id=${row.getId()})}">Update</a>-->
+            </button>
+        </td>
+        <td>
+            <button>
+<!--                <a th:href="@{/customers/delete/{id}(id=${row.getId()})}">delete</a>-->
+            </button>
+        </td>
+    </tr>
+</table>
+<button>
+    <a th:href="@{/book_cards}">Book Card List</a>
+</button>
+</body>
+</html>

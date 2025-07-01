@@ -1,4 +1,4 @@
-package com.codegym.springcountview.configuration;
+package com.codegym.springsaveusername.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

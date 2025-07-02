@@ -60,4 +60,11 @@ public class ProductController {
         mv.addObject("product", productOptional.get());
         return mv;
     }
+
+    @GetMapping("buy")
+    public ModelAndView buyCart(@ModelAttribute Cart cart) {
+        cart = new Cart();
+        ModelAndView mv = new ModelAndView("redirect:/shop");
+        return mv;
+    }
 }

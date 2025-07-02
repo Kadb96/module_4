@@ -42,4 +42,22 @@ public class ProductController {
         cart.addProduct(productOptional.get());
         return new ModelAndView("redirect:/shop");
     }
+
+    @GetMapping("/remove/{id}")
+    public ModelAndView removeFromCart(@PathVariable Long id, @ModelAttribute Cart cart) {
+        Optional<Product> productOptional = productService.findById(id);
+        cart.removeProduct(productOptional.get());
+        return new ModelAndView("redirect:/shopping_cart");
+    }
+
+    @GetMapping("view/{id}")
+    public ModelAndView viewCart(@PathVariable Long id) {
+        Optional<Product> productOptional = productService.findById(id);
+        if (!productOptional.isPresent()) {
+            return new ModelAndView("error");
+        }
+        ModelAndView mv = new ModelAndView("view");
+        mv.addObject("product", productOptional.get());
+        return mv;
+    }
 }

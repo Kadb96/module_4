@@ -36,13 +36,25 @@ public class Cart {
     }
 
     public void addProduct(Product product) {
-            if (!checkItemInCart(product)) {
-                products.put(product, 1);
-            } else {
-                Map.Entry<Product, Integer> itemEntry = selectItemInCart(product);
-                Integer newQuantity = itemEntry.getValue() +1;
-                products.replace(itemEntry.getKey(), newQuantity);
-            }
+        if (!checkItemInCart(product)) {
+            products.put(product, 1);
+        } else {
+            Map.Entry<Product, Integer> itemEntry = selectItemInCart(product);
+            Integer newQuantity = itemEntry.getValue() + 1;
+            products.replace(itemEntry.getKey(), newQuantity);
+        }
+    }
+
+
+    public void removeProduct(Product product) {
+        Map.Entry<Product, Integer> itemEntry = selectItemInCart(product);
+        Integer quantity = itemEntry.getValue();
+        if (quantity == 1) {
+            products.remove(itemEntry.getKey());
+        } else {
+            Integer newQuantity = itemEntry.getValue() - 1;
+            products.replace(itemEntry.getKey(), newQuantity);
+        }
     }
 
     public Integer countProductQuantity() {

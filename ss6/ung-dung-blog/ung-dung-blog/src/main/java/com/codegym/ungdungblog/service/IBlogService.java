@@ -9,4 +9,5 @@ public interface IBlogService extends IGeneralService<Blog> {
     Page<Blog> findAllByNameContaining(String name, Pageable pageable);
     Page<Blog> findAllByNameContainingAndCategory(String name, String category, Pageable pageable);
     Page<Blog> findAllByCategory(String category, Pageable pageable);
+    Iterable<Blog> findAllByCategory(String category);
 }

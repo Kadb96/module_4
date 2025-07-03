@@ -42,6 +42,11 @@ public class BlogService implements IBlogService {
     }
 
     @Override
+    public Iterable<Blog> findAllByCategory(String category) {
+        return blogRepository.findAllByCategory_Name(category);
+    }
+
+    @Override
     public Optional<Blog> findById(Long id) {
         return blogRepository.findById(id);
     }

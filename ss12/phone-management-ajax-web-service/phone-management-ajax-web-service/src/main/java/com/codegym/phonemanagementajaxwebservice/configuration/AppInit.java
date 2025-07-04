@@ -1,4 +1,4 @@
-package com.codegym.ungdungblog.configuration;
+package com.codegym.phonemanagementajaxwebservice.configuration;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;

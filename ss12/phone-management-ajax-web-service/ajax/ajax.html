@@ -7,10 +7,11 @@
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-  $(document).ready(function (){
+  $(document).ready(function () {
       successHandler();
     }
   )
+
   function addNewSmartPhone() {
     //lấy dữ liệu từ form html
     let producer = $('#producer').val();
@@ -51,6 +52,7 @@
           ' <th>Model</td>\n' +
           ' <th>Price</td>\n' +
           ' <th>Delete</td>\n' +
+          ' <th>Edit</td>\n' +
           ' </tr>';
         for (let i = 0; i < data.length; i++) {
           content +=
@@ -59,6 +61,9 @@
             `<td>${data[i].model}</td>` +
             `<td>${data[i].price}</td>` +
             `<td><button onclick="deleteSmartphone(${data[i].id})">Delete</button></td>` +
+            `<td>` +
+            `<button onclick="showEditSmartphoneForm(${data[i].id}, ${data[i].producer}, ${data[i].model}, ${data[i].price})">Edit</button>` +
+            `</td>` +
             `</tr>`
         }
         content += "</table>"
@@ -66,12 +71,51 @@
       }
     });
   }
+
   function deleteSmartphone(id) {
     $.ajax({
       type: "DELETE",
       url: `http://localhost:8080/api/smartphones/${id}`,
       success: successHandler
     })
+  }
+
+  function showEditSmartphoneForm(id, producer, model, price) {
+    let content =
+      `<input id="editId" type="hidden" value="${id}">` +
+      `Producer: <input id="editProducer" type="text" text="${producer}"><br>` +
+      `Model: <input id="editModel" type="text" text="${model}"><br>` +
+      `Price: <input id="editPrice" type="number" text="${price}"><br>` +
+      `<button onclick="editSmartphone()">Edit Smartphone</button>`;
+    document.getElementById('edit-smartphone-form').innerHTML = content;
+  }
+
+  function editSmartphone() {
+    let id = $('#editId').val();
+    let producer = $('#editProducer').val();
+    let model = $('#editModel').val();
+    let price = $('#editPrice').val();
+    let newSmartphone = {
+      id: id,
+      producer: producer,
+      model: model,
+      price: price
+    };
+    // gọi phương thức ajax
+    $.ajax({
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      type: "PUT",
+      data: JSON.stringify(newSmartphone),
+      //tên API
+      url: `http://localhost:8080/api/smartphones/${id}`,
+      //xử lý khi thành công
+      success: successHandler
+    });
+    //chặn sự kiện mặc định của thẻ
+    event.preventDefault();
   }
 </script>
 <form id="add-smartphone">
@@ -96,8 +140,7 @@
   </table>
 </form>
 
-<div id="smartphone-list">
-
-</div>
+<div id="smartphone-list"></div>
+<div id="edit-smartphone-form"></div>
 </body>
 </html>

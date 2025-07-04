@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog List</title>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+      successHandler();
+      event.preventDefault();
+    }
+  );
+
+  function successHandler() {
+    let currentSize = $('#size').val();
+    let searchName = $('#searchName').val();
+    $.ajax({
+      type: "GET",
+      //tên API
+      data: {"size": currentSize,
+      "searchName": searchName},
+      url: `http://localhost:8080/api/blogs/search_with_slice`,
+      //xử lý khi thành công
+      success: function (data) {
+        // hiển thị danh sách ở đây
+        let content = ' <table id="display-list" border="1"><tr>\n' +
+          ' <th>ID</td>\n' +
+          ' <th>Name</td>\n' +
+          ' <th>Category</td>\n' +
+          ' </tr>';
+        for (let i = 0; i < data.content.length; i++) {
+          content +=
+            `<tr>` +
+            `<td>${data.content[i].id}</td>` +
+            `<td>${data.content[i].name}</td>` +
+            `<td>${data.content[i].category.name}</td>` +
+            `</tr>`
+        }
+        content += "</table>"
+        document.getElementById('blog-list').innerHTML = content;
+      }
+    });
+  }
+
+  function showMore() {
+    let size = Number(document.getElementById('size').value);
+    size += 3
+    document.getElementById('size').value = size;
+    successHandler();
+  }
+</script>
+<h3>Blogs</h3>
+<div style="margin-bottom: 10px">
+        <input id="searchName" type="text" name="searchName">
+        <button onclick="successHandler()">Search</button>
+</div>
+<div id="blog-list"></div>
+<input id='size' type='hidden' value=3>
+<button onclick="showMore()">Show More</button>
+</body>
+</html>

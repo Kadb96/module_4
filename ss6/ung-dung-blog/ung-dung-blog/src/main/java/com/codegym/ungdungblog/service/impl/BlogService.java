@@ -7,6 +7,7 @@ import com.codegym.ungdungblog.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -25,6 +26,17 @@ public class BlogService implements IBlogService {
     public Page<Blog> findAll(Pageable pageable) {
         return blogRepository.findAll(pageable);
     }
+
+    @Override
+    public Slice<Blog> findAllWithSlice(Pageable pageable) {
+        return blogRepository.findAll(pageable);
+    }
+
+    @Override
+    public Slice<Blog> searchWithSlice(String name, Pageable pageable) {
+        return blogRepository.findAllByNameContaining(name, pageable);
+    }
+
 
     @Override
     public Page<Blog> findAllByNameContaining(String name, Pageable pageable) {

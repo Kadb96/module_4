@@ -1,4 +1,4 @@
-package com.codegym.ungdungquanlydanhsachkhachhang.configuration;
+package com.codegym.ungdungblog.configuration;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;

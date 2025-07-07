@@ -1,16 +1,16 @@
-package com.codegym.ungdungquanlydanhsachkhachhang.configuration;
+package com.codegym.ungdungblog.configuration;
+import com.codegym.ungdungblog.formatter.CategoryFormatter;
+import com.codegym.ungdungblog.service.impl.CategoryService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -18,12 +18,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -32,16 +28,14 @@ import org.thymeleaf.templatemode.TemplateMode;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.util.Locale;
 import java.util.Properties;
 
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan(basePackages = "com.codegym.ungdungquanlydanhsachkhachhang")
-@EnableJpaRepositories("com.codegym.ungdungquanlydanhsachkhachhang.repository")
+@ComponentScan(basePackages = "com.codegym.ungdungblog")
+@EnableJpaRepositories("com.codegym.ungdungblog.repository")
 @EnableSpringDataWebSupport
-@EnableAspectJAutoProxy
 public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
@@ -88,7 +82,7 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("com.codegym.ungdungquanlydanhsachkhachhang.model");
+        em.setPackagesToScan("com.codegym.ungdungblog.model");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -100,7 +94,7 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/customer-cms");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/ung_dung_blog");
         dataSource.setUsername("root");
         dataSource.setPassword("codegym");
         return dataSource;
@@ -120,26 +114,9 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         return properties;
     }
 
-    //I18N
-    @Bean
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("message");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
-
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
-        interceptor.setParamName("lang");
-        registry.addInterceptor(interceptor);
-    }
-
-    @Bean
-    public LocaleResolver localeResolver() {
-        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-        localeResolver.setDefaultLocale(new Locale("en"));
-        return localeResolver;
+    public void addFormatters(FormatterRegistry registry) {
+        CategoryFormatter categoryFormatter = new CategoryFormatter(applicationContext.getBean(CategoryService.class));
+        registry.addFormatter(categoryFormatter);
     }
 }

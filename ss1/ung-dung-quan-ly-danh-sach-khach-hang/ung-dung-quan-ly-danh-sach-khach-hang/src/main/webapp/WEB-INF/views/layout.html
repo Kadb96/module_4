@@ -4,9 +4,6 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Spring Customer</title>
-
     <style>
         h3{background-color: blue; color: white; padding: 10px 0 10px 20px;}
         footer{margin: 10px 0;}
@@ -71,6 +68,13 @@
     </style>
 </head>
 <body>
+
+<div th:fragment="language">
+    <span th:text="#{language.label}"></span>
+    <a href="?lang=en" th:text="#{language.english.button}"></a>
+    <span> | </span>
+    <a href="?lang=vi" th:text="#{language.vietnamese.button}"></a>
+</div>
 
 <footer th:fragment="footer">
     &copy; 2021 CodeGym

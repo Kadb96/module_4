@@ -4,6 +4,7 @@ import com.codegym.ungdungquanlydanhsachkhachhang.exception.DuplicateEmailExcept
 import com.codegym.ungdungquanlydanhsachkhachhang.model.Customer;
 import com.codegym.ungdungquanlydanhsachkhachhang.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -59,7 +60,7 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public String save(Customer customer) throws DuplicateEmailException{
+    public String save(Customer customer) throws Exception {
             customerService.save(customer);
             return "redirect:/customers";
     }
@@ -73,14 +74,14 @@ public class CustomerController {
     }
 
     @PostMapping("/update")
-    public String update(Customer customer) throws DuplicateEmailException {
-        customerService.save(customer);
-        return "redirect:/customers";
+    public String update(Customer customer) throws Exception{
+            customerService.save(customer);
+            return "redirect:/customers";
     }
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable Long id, Model model) {
-        model.addAttribute("customer", customerService.findById(id));
+        model.addAttribute("customer", customerService.findById(id).get());
         return "delete";
     }
 
@@ -99,8 +100,8 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @ExceptionHandler(DuplicateEmailException.class)
-    public ModelAndView showInputNotAcceptable() {
-        return new ModelAndView("input_not_acceptable");
+    @ExceptionHandler
+    public String handleException(Exception e) {
+        return "input_not_acceptable";
     }
 }

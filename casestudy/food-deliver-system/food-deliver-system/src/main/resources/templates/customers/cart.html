@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Cart</title>
+</head>
+<body>
+<h1>Your Cart</h1>
+<table>
+    <tr>
+        <th>Dish</th>
+        <th>Quantity</th>
+        <th>Price Each</th>
+        <th>Price All Dish</th>
+    </tr>
+    <tr th:each="cartItem,cartStat : ${cart}">
+        <td th:text="${cartItem.getKey()}"></td>
+        <td th:text="${cartItem.getValue()}"></td>
+        <td th:text="${cartItem.getKey().price}"></td>
+        <td th:text="${cartItem.getKey().price * cartItem.getValue()}"></td>
+</table>
+</body>
+</html>

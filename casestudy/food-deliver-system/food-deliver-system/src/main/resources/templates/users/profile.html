@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+    <h1>
+        <span>Welcome, </span><span th:text="${userSession.username}"></span>
+        <br/>
+    </h1>
+    <h2>
+        <a th:href="@{/customers}">Start Pick Your Meal</a>
+    </h2>
+    <h2>Your Profile</h2>
+    <h2 th:if="${userSession.getRoles().contains(roleOwner)}">
+        <a th:href="@{/owners/restaurants}">Your Restaurant</a>
+    </h2>
+</body>
+</html>

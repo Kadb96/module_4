@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Show Dish Detail</title>
+</head>
+<body>
+<h1>Show Dish Detail</h1>
+    <div>
+        <span>ID: </span>
+        <span th:text="${dish.id}"></span>
+    </div>
+    <div>
+        <span>Name: </span>
+        <span th:text="${dish.name}"></span>
+    </div>
+    <div>
+        <span>Price: </span>
+        <span th:text="${dish.price}"></span>
+    </div>
+    <div>
+        <span>Description: </span>
+        <span th:text="${dish.description}"></span>
+    </div>
+</body>
+</html>

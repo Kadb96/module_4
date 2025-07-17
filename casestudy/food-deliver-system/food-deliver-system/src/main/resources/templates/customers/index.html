@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>FDS</title>
+</head>
+<body>
+<h1>Pick Your Food</h1>
+<div th:each="restaurant,restaurantStat : ${restaurants}">
+    <h3 th:text="${restaurant.name}"></h3>
+    <span>Address: </span><span th: th:text="${restaurant.address}"></span>
+    <div>
+        <h3>Menu</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Add</th>
+            </tr>
+            <tr th:each="dish,dishStat : ${restaurant.dishes}">
+                <td th:text="${dish.name}"></td>
+                <td th:text="${dish.price}"></td>
+                <td>
+                    <button>
+                        <a th:href="@{/customers/add_to_cart/{id}(id=${dish.id})}">Add to Cart</a>
+                    </button>
+                </td>
+        </table>
+    </div>
+</div>
+</body>
+</html>

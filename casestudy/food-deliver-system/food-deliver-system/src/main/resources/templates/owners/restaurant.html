@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Menu</title>
+</head>
+<body>
+<butotn>
+    <a th:href="@{/owners/restaurants/add_dish_form}">Add Dish</a>
+</butotn>
+<h3>Restaurant Menu</h3>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>View</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="row,rowStat : ${dishes}">
+        <td th:text="${row.name}"></td>
+        <td th:text="${row.price}"></td>
+        <td><button><a th:href="@{/owners/restaurants/dish_detail/{id}(id=${row.id})}">Detail</a></button></td>
+        <td><button><a th:href="@{/owners/restaurants/edit_dish_form/{id}(id=${row.id})}">Edit</a></button></td>
+        <td><button><a th:href="@{/owners/restaurants/delete_dish/{id}(id=${row.id})}">Delete</a></button></td>
+    </tr>
+</table>
+</body>
+</html>

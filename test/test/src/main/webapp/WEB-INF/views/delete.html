@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+</head>
+<head>
+    <title th:text="#{title.delete}"></title>
+</head>
+<body>
+<div th:replace="/layout :: language"></div>
+<h3 th:text="#{title.delete}"></h3>
+<p>
+    <a th:href="@{/customers}" th:text="#{back-to-customer-list.button}"></a>
+</p>
+<div id="form">
+    <form th:action="@{/customers/delete}" th:object="${customer}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label for="name" th:text="#{customer.name}"></label>
+            <input type="text" id="name" th:field="*{name}"/>
+        </div>
+        <div>
+            <label for="email" th:text="#{customer.email}"></label>
+            <input type="email" id="email" th:field="*{email}"/>
+        </div>
+        <div>
+            <label for="address" th:text="#{customer.address}"></label>
+            <input type="text" id="address" th:field="*{address}"/>
+        </div>
+        <input type="submit" th:value="#{title.delete}"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
+<!--<head th:replace="/layout :: head">-->
+<!--</head>-->
+<head>
+    <title>Product List</title>
+</head>
+<body>
+<h3>
+    <a th:href="@{/products/create}">Create New Product</a>
+</h3>
+<h1>Product Management</h1>
+<div>
+    <form th:action="@{/customers/search}" method="get">
+        <label>Name: </label>
+        <input type="text" name="search" th:value="${search}"><br>
+<!--        <label>Price: </label>-->
+<!--        <input type="number" name="searchPrice" th:value="${searchPrice}">-->
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>Number</th>
+        <th>Chose</th>
+        <th>Product Name</th>
+        <th>Start Price</th>
+        <th>Product Type</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <body>
+    <tr th:each="product,productStat : ${products}">
+        <td th:text="${product.id}"></td>
+        <td>
+            <input type="checkbox">
+        </td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.productType.name}"></td>
+        <td th:text="${product.status}"></td>
+        <td><a th:href="@{/products/{id}/edit(id=${product.id})}">Edit</a></td>
+    </tr>
+    </body>
+</table>
+<div>
+    <a class="btn btn-primary" th:if="${products.hasPrevious()}"
+       th:href="@{/products/search(page=${products.number - 1}, search=${search})}"> < </a>
+    <span th:text="${products.number + 1}"></span> | <span th:text="${products.totalPages}"></span>
+    <a class="btn btn-primary" th:if="${products.hasNext()}"
+       th:href="@{/products/search(page=${products.number + 1}, search=${search})}"> > </a>
+</div>
+<button><a>Delete</a></button>
+</body>
+</html>
